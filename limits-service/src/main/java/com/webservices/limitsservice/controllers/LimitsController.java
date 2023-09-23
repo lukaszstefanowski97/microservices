@@ -1,4 +1,4 @@
-package com.webservices.limitsservice.controller;
+package com.webservices.limitsservice.controllers;
 
 import com.webservices.limitsservice.bean.Limits;
 import com.webservices.limitsservice.config.Configuration;
