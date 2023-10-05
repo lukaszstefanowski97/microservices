@@ -2,6 +2,7 @@ package com.webservices.currencyexchangeservice.controllers;
 
 import com.webservices.currencyexchangeservice.currencyExchange.CurrencyExchange;
 import com.webservices.currencyexchangeservice.currencyExchange.CurrencyExchangeRepository;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -16,6 +17,7 @@ public class CurrencyExchangeController {
     private Environment environment;
     private CurrencyExchangeRepository repository;
 
+    @Retry(name = "currency-exchange", fallbackMethod = "hardcodedResponse")
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public CurrencyExchange retrieveExchangeValue(@Valid @PathVariable String from, @Valid @PathVariable String to) {
         CurrencyExchange currencyExchange = repository.findByFromAndTo(from, to);
